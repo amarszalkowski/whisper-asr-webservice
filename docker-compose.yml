@@ -1,3 +1,5 @@
+version: "3.4"
+
 services:
   whisper-asr-webservice:
     build:
@@ -12,13 +14,9 @@ services:
       - cache-pip:/root/.cache/pip
       - cache-poetry:/root/.cache/poetry
       - cache-whisper:/root/.cache/whisper
-    networks:
-      - translationNetwork
+
 volumes:
   cache-pip:
   cache-poetry:
   cache-whisper:
   cache-faster-whisper:
-networks:
-    translationNetwork:
-        external: true
