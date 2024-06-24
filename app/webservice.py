@@ -8,6 +8,7 @@ import numpy as np
 from fastapi import FastAPI, File, UploadFile, Query, applications
 from fastapi.openapi.docs import get_swagger_ui_html
 from fastapi.responses import StreamingResponse, RedirectResponse
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from whisper import tokenizer
 from urllib.parse import quote
@@ -34,6 +35,19 @@ app = FastAPI(
         "name": "MIT License",
         "url": projectMetadata['License']
     }
+)
+
+allowed_origins = [
+    "http://localhost",  # Make sure this matches the port your frontend is running on
+    "https://yourfrontenddomain.com",  # Replace this with your actual frontend domain
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=allowed_origins,  # List of allowed origins
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all methods
+    allow_headers=["*"],  # Allows all headers
 )
 
 assets_path = os.getcwd() + "/swagger-ui-assets"
